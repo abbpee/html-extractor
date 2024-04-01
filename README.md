@@ -8,7 +8,7 @@ sudo apt-get install nodejs npm chromium-browser libx11-xcb1 libxcomposite1 liba
 ```
 2. установка приложения
 ```
-git clone https://github.com/abbpee/html-extractor.git
+git clone https://github.com/abbpee/html-extractor.git && \
 cd html-extractor && sudo npm install
 ```
 
