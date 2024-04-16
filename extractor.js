@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import {delay} from './utils.js';
 
 var browser = null;
 var destroyTimer = null;
@@ -68,7 +69,7 @@ async function getHTML(url) {
         await initBrowser();
         let page = await initPage();
     
-        await page.goto(url, {timeout: 30000});
+        await page.goto(url, {timeout: 30000, waitUntil: 'networkidle0'});
         await page.evaluate(() => {
             document.querySelectorAll('script, style, noscript, ymaps, iframe').forEach(e => {e.remove()});
         });
