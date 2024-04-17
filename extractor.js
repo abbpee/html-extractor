@@ -80,6 +80,7 @@ async function getHTML(url) {
         await page.close();
     } catch (err) {
         console.error(err);
+        throw err;
     }
 
     return html;

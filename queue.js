@@ -22,7 +22,7 @@ async function run() {
 
             job.onResult(data);
         } catch (err) {
-            job.onResult(null);
+            job.onResult(null, err.toString());
             console.error(err);
         }
     }

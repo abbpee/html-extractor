@@ -12,13 +12,19 @@ const server = createServer((req, res) => {
     res.setHeader('Content-Type', 'text/plain;charset=UTF-8');
     if (url.pathname === '/get-html') {
         let parseUrl = url.searchParams.get('url');
-        if (null == parseUrl) {
-            res.end('');
+        if (!parseUrl) {
+            res.statusCode = 404;
+            res.end('URL NOT FOUND');
         } else {
             queue(async () => {
                 return await extract(parseUrl);
-            }, (html) => {
-                res.end(html);
+            }, (html, errMsg = null) => {
+                if (errMsg) {
+                    res.statusCode = 500;
+                    res.end(errMsg);
+                } else {
+                    res.end(html);
+                }
             });
         }
     } else {
