@@ -22,7 +22,10 @@ pm2 stop index.js // остановить
 ```
 pm2 startup
 ```
-3. Пример запроса
+
+# Примеры запроса
+
+## Успешный ответ
 
 **REQUEST**
 ```http
@@ -43,3 +46,35 @@ Content-Type: text/plain;charset=UTF-8
 </body>
 </html>
 ```
+
+## Не передан урл
+
+**REQUEST**
+```http
+GET /get-html?url= HTTP/1.1
+HOST: 127.0.0.1:3000
+```
+
+**RESPONSE**
+```http
+HTTP/1.1 404 Not Found
+Content-Type: text/plain;charset=UTF-8
+URL NOT FOUND
+```
+
+## Ошибка запроса или ошибка приложения
+
+**REQUEST**
+```http
+GET /get-html?url=helloworld HTTP/1.1
+HOST: 127.0.0.1:3000
+```
+
+**RESPONSE**
+```http
+HTTP/1.1 500 Internal Server Error
+Content-Type: text/plain;charset=UTF-8
+ProtocolError: Protocol error (Page.navigate): Cannot navigate to invalid URL
+```
+
+Так же ошибки выбрасываются в консоль 
