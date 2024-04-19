@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { TimeoutError } from 'puppeteer';
 import {delay} from './utils.js';
 
 var browser = null;
@@ -69,7 +69,14 @@ async function getHTML(url) {
         await initBrowser();
         let page = await initPage();
     
-        await page.goto(url, {timeout: 30000, waitUntil: 'networkidle0'});
+        try {
+            await page.goto(url, {timeout: 13000, waitUntil: 'networkidle0'});
+        } catch (err) {
+            if (! (err instanceof TimeoutError)) {
+                throw err;
+            }
+        }
+
         await page.evaluate(() => {
             document.querySelectorAll('script, style, noscript, ymaps, iframe').forEach(e => {e.remove()});
         });
@@ -79,6 +86,10 @@ async function getHTML(url) {
     
         await page.close();
     } catch (err) {
+        try {
+            await page.close();
+        } catch (eee) {}
+
         console.error(err);
         throw err;
     }
