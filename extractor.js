@@ -8,7 +8,7 @@ var destroyTimer = null;
 async function initBrowser() {
     if (! browser) {
         browser = await puppeteer.launch({
-            args: ['--ignore-certificate-errors'],
+            args: ['--ignore-certificate-errors', '--no-sandbox'],
         });
     }
 
